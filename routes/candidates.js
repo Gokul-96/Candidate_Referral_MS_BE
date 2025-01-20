@@ -57,7 +57,7 @@ router.get('/', async (req, res) => {
 });
 
 // UPDATE CANDIDATE STATUS
-router.put('/:id', async (req, res) => {
+router.put('/:id/status', async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
 

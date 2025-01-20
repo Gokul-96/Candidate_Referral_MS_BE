@@ -9,7 +9,7 @@ const app = express();
 const PORT = 5000;
 
 // MIDDLEWARE
-app.use(cors());
+app.use(cors({ origin: 'https://yourfrontend.netlify.app' }));
 app.use(express.json()); //parse json data to object
 app.use('/uploads', express.static('uploads'));
 
