@@ -57,16 +57,24 @@ router.get('/', async (req, res) => {
 });
 
 // UPDATE CANDIDATE STATUS
-router.put('/:id/status', async (req, res) => {
+router.put('/:id', async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
   try {
-    const { status } = req.body;
-    const candidate = await Candidate.findByIdAndUpdate(req.params.id, { status }, { new: true });
-    res.json(candidate);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+      const updatedCandidate = await Candidate.findByIdAndUpdate(
+          id,
+          { status },
+          { new: true } // Return the updated document
+      );
+      if (!updatedCandidate) {
+          return res.status(404).json({ error: 'Candidate not found' });
+      }
+      res.json(updatedCandidate);
+  } catch (error) {
+      res.status(500).json({ error: 'Failed to update candidate' });
   }
 });
-
 // DELETE A CANDIDATE
 router.delete('/:id', async (req, res) => {
   try {
